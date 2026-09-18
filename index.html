@@ -1,0 +1,1020 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Liyana S.P — AI Engineer & GenAI Specialist</title>
+  
+  <!-- Favicon -->
+  <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>🧠</text></svg>">
+
+  <!-- Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Cabinet+Grotesk:wght@300;400;500;600;700;800;900&family=DM+Mono:ital,wght@0,300;0,400;0,500;1,400&family=Syne:wght@500;600;700;800&family=Plus+Jakarta+Sans:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    :root {
+      --bg: #05070f;
+      --bg-alt: #090e1c;
+      --surface: rgba(15, 23, 42, 0.7);
+      --surface-solid: #0f172a;
+      --surface-hover: rgba(30, 41, 59, 0.85);
+      --border: rgba(56, 189, 248, 0.15);
+      --border-glow: rgba(56, 189, 248, 0.45);
+      --accent: #38bdf8;
+      --accent-glow: rgba(56, 189, 248, 0.35);
+      --accent2: #818cf8;
+      --accent3: #34d399;
+      --text: #f8fafc;
+      --muted: #94a3b8;
+      --dim: #475569;
+    }
+
+    html { scroll-behavior: smooth; }
+
+    body {
+      background: var(--bg);
+      color: var(--text);
+      font-family: 'Plus Jakarta Sans', sans-serif;
+      overflow-x: hidden;
+      line-height: 1.6;
+      cursor: default;
+    }
+
+    /* CUSTOM CURSOR FOR DESKTOP */
+    @media (pointer: fine) {
+      body { cursor: none; }
+      .cursor-dot {
+        position: fixed; width: 8px; height: 8px; background: var(--accent);
+        border-radius: 50%; pointer-events: none; z-index: 99999;
+        transform: translate(-50%, -50%); transition: transform 0.08s, width 0.2s, height 0.2s, background 0.2s;
+        box-shadow: 0 0 12px var(--accent);
+      }
+      .cursor-follower {
+        position: fixed; width: 34px; height: 34px; border: 1.5px solid rgba(56, 189, 248, 0.5);
+        border-radius: 50%; pointer-events: none; z-index: 99998;
+        transform: translate(-50%, -50%); transition: transform 0.15s ease-out, width 0.25s, height 0.25s;
+        backdrop-filter: blur(1px);
+      }
+    }
+
+    /* NEURAL CANVAS */
+    #neural-canvas {
+      position: fixed; top: 0; left: 0; width: 100vw; height: 100vh;
+      z-index: 0; pointer-events: none; opacity: 0.65;
+    }
+
+    /* GRID BACKGROUND OVERLAY */
+    .grid-bg {
+      position: fixed; inset: 0; z-index: 0; pointer-events: none;
+      background-image:
+        linear-gradient(rgba(56, 189, 248, 0.02) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(56, 189, 248, 0.02) 1px, transparent 1px);
+      background-size: 50px 50px;
+    }
+
+    /* AMBIENT GLOW ORBS */
+    .ambient-glow {
+      position: fixed; border-radius: 50%; filter: blur(120px); pointer-events: none; z-index: 0;
+    }
+    .glow-1 { width: 550px; height: 550px; background: rgba(56, 189, 248, 0.09); top: -150px; right: -100px; }
+    .glow-2 { width: 450px; height: 450px; background: rgba(129, 140, 248, 0.08); bottom: 10%; left: -100px; }
+    .glow-3 { width: 350px; height: 350px; background: rgba(52, 211, 153, 0.06); top: 50%; right: 10%; }
+
+    /* CONTENT WRAPPERS */
+    nav, section, footer { position: relative; z-index: 2; }
+    section { padding: 7rem 2rem; max-width: 1200px; margin: 0 auto; }
+
+    /* NAVIGATION */
+    nav {
+      position: fixed; top: 0; left: 0; right: 0; z-index: 100;
+      padding: 1rem 3rem;
+      display: flex; justify-content: space-between; align-items: center;
+      background: rgba(5, 7, 15, 0.75);
+      backdrop-filter: blur(20px);
+      border-bottom: 1px solid var(--border);
+      transition: all 0.3s ease;
+    }
+    .nav-brand {
+      display: flex; align-items: center; gap: 0.75rem; text-decoration: none;
+    }
+    .brand-logo {
+      width: 38px; height: 38px; border-radius: 10px;
+      background: linear-gradient(135deg, var(--accent), var(--accent2));
+      display: flex; align-items: center; justify-content: center;
+      font-family: 'Syne', sans-serif; font-weight: 800; font-size: 1.1rem; color: #05070f;
+      box-shadow: 0 0 20px var(--accent-glow);
+    }
+    .brand-text {
+      font-family: 'Syne', sans-serif; font-weight: 800; font-size: 1.25rem;
+      background: linear-gradient(90deg, #fff, #94a3b8);
+      -webkit-background-clip: text; -webkit-text-fill-color: transparent;
+    }
+    .nav-links { display: flex; gap: 2rem; align-items: center; }
+    .nav-links a {
+      color: var(--muted); text-decoration: none; font-size: 0.85rem;
+      font-weight: 500; letter-spacing: 0.05em; font-family: 'DM Mono', monospace;
+      transition: color 0.2s;
+    }
+    .nav-links a:hover { color: var(--accent); }
+    .nav-btn {
+      padding: 0.5rem 1.25rem; border-radius: 8px; font-size: 0.8rem; font-family: 'DM Mono', monospace;
+      background: rgba(56, 189, 248, 0.1); border: 1px solid var(--border-glow);
+      color: var(--accent); text-decoration: none; transition: all 0.3s;
+    }
+    .nav-btn:hover {
+      background: var(--accent); color: #05070f; box-shadow: 0 0 20px var(--accent-glow);
+    }
+
+    /* HERO SECTION */
+    #hero {
+      min-height: 100vh;
+      display: flex; align-items: center; justify-content: space-between;
+      padding-top: 8rem; gap: 4rem;
+    }
+    .hero-content { flex: 1.2; }
+    .hero-badge {
+      display: inline-flex; align-items: center; gap: 0.6rem;
+      padding: 0.4rem 1rem; border-radius: 100px;
+      background: rgba(52, 211, 153, 0.1); border: 1px solid rgba(52, 211, 153, 0.3);
+      font-family: 'DM Mono', monospace; font-size: 0.75rem; color: var(--accent3);
+      margin-bottom: 1.5rem;
+    }
+    .badge-dot {
+      width: 8px; height: 8px; border-radius: 50%; background: var(--accent3);
+      box-shadow: 0 0 10px var(--accent3); animation: pulse 2s infinite;
+    }
+    @keyframes pulse { 0%,100% { opacity: 1; transform: scale(1); } 50% { opacity: 0.4; transform: scale(0.85); } }
+
+    .hero-title {
+      font-family: 'Syne', sans-serif;
+      font-size: clamp(3rem, 5.5vw, 5rem);
+      font-weight: 800; line-height: 1.05; letter-spacing: -0.03em;
+      margin-bottom: 1.2rem;
+    }
+    .gradient-text {
+      background: linear-gradient(120deg, var(--accent) 0%, var(--accent2) 50%, var(--accent3) 100%);
+      -webkit-background-clip: text; -webkit-text-fill-color: transparent;
+      background-size: 200% auto; animation: textShine 5s ease infinite;
+    }
+    @keyframes textShine { 0%, 100% { background-position: 0% 50%; } 50% { background-position: 100% 50%; } }
+
+    .hero-desc {
+      font-size: 1.15rem; color: var(--muted); max-width: 580px;
+      line-height: 1.7; margin-bottom: 2.5rem;
+    }
+
+    .hero-actions { display: flex; gap: 1rem; flex-wrap: wrap; margin-bottom: 3.5rem; }
+    .btn-primary {
+      padding: 0.85rem 2rem; background: var(--accent); color: #05070f;
+      border: none; border-radius: 8px; font-weight: 700;
+      font-family: 'Syne', sans-serif; font-size: 0.95rem;
+      text-decoration: none; display: inline-flex; align-items: center; gap: 0.6rem;
+      box-shadow: 0 0 30px var(--accent-glow); transition: all 0.3s ease;
+    }
+    .btn-primary:hover {
+      transform: translateY(-3px); box-shadow: 0 0 50px rgba(56, 189, 248, 0.6);
+    }
+    .btn-outline {
+      padding: 0.85rem 2rem; background: rgba(15, 23, 42, 0.6); color: var(--text);
+      border: 1px solid var(--border); border-radius: 8px; font-weight: 600;
+      font-family: 'Syne', sans-serif; font-size: 0.95rem;
+      text-decoration: none; display: inline-flex; align-items: center; gap: 0.6rem;
+      backdrop-filter: blur(10px); transition: all 0.3s ease;
+    }
+    .btn-outline:hover {
+      border-color: var(--accent); background: rgba(56, 189, 248, 0.1); transform: translateY(-3px);
+    }
+
+    /* HERO PHOTO AVATAR CARD */
+    .hero-avatar-wrap {
+      flex: 0.85; display: flex; justify-content: center; position: relative;
+    }
+    .avatar-card {
+      position: relative; width: 330px; border-radius: 24px;
+      padding: 12px; background: rgba(15, 23, 42, 0.7);
+      backdrop-filter: blur(20px); border: 1px solid var(--border);
+      box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.7), 0 0 40px var(--accent-glow);
+      animation: floatCard 6s ease-in-out infinite;
+    }
+    @keyframes floatCard { 0%,100% { transform: translateY(0); } 50% { transform: translateY(-12px); } }
+    .avatar-img-wrap {
+      width: 100%; height: 360px; border-radius: 18px; overflow: hidden;
+      position: relative; background: #0b1329;
+    }
+    .avatar-img-wrap img {
+      width: 100%; height: 100%; object-fit: cover; object-position: center top;
+      transition: transform 0.5s ease;
+    }
+    .avatar-card:hover .avatar-img-wrap img { transform: scale(1.04); }
+    .avatar-meta {
+      padding: 1rem 0.5rem 0.5rem; text-align: center;
+    }
+    .avatar-name { font-family: 'Syne', sans-serif; font-weight: 800; font-size: 1.25rem; }
+    .avatar-role { font-family: 'DM Mono', monospace; font-size: 0.78rem; color: var(--accent); }
+    .avatar-badge-float {
+      position: absolute; bottom: 20px; right: -25px;
+      background: rgba(15, 23, 42, 0.95); border: 1px solid var(--accent3);
+      padding: 0.6rem 1rem; border-radius: 12px; font-family: 'DM Mono', monospace;
+      font-size: 0.75rem; color: var(--accent3); backdrop-filter: blur(15px);
+      box-shadow: 0 10px 30px rgba(0,0,0,0.5); display: flex; align-items: center; gap: 0.5rem;
+    }
+
+    /* STATS ROW */
+    .hero-stats {
+      display: grid; grid-template-columns: repeat(4, 1fr); gap: 1.5rem;
+      padding-top: 2.5rem; border-top: 1px solid var(--border);
+    }
+    .stat-box {
+      background: var(--surface); border: 1px solid var(--border);
+      border-radius: 12px; padding: 1.25rem; text-align: center;
+      transition: all 0.3s ease;
+    }
+    .stat-box:hover { border-color: var(--accent); transform: translateY(-4px); }
+    .stat-num {
+      font-family: 'Syne', sans-serif; font-size: 2.2rem; font-weight: 800;
+      color: var(--accent); line-height: 1;
+    }
+    .stat-label {
+      font-family: 'DM Mono', monospace; font-size: 0.75rem; color: var(--muted);
+      margin-top: 0.4rem; text-transform: uppercase; letter-spacing: 0.05em;
+    }
+
+    /* SECTION HEADERS */
+    .section-tag {
+      font-family: 'DM Mono', monospace; font-size: 0.8rem; letter-spacing: 0.2em;
+      color: var(--accent); text-transform: uppercase; display: flex; align-items: center; gap: 0.75rem;
+      margin-bottom: 0.75rem;
+    }
+    .section-tag::after { content: ''; width: 45px; height: 1px; background: var(--accent); opacity: 0.5; }
+    .section-title {
+      font-family: 'Syne', sans-serif; font-size: clamp(2.2rem, 4vw, 3.2rem);
+      font-weight: 800; letter-spacing: -0.03em; margin-bottom: 3rem;
+    }
+
+    /* INTERACTIVE AI AGENT TERMINAL */
+    .terminal-card {
+      background: rgba(11, 17, 33, 0.85); border: 1px solid var(--border-glow);
+      border-radius: 16px; overflow: hidden; box-shadow: 0 20px 50px rgba(0,0,0,0.5);
+      backdrop-filter: blur(20px); margin-bottom: 6rem;
+    }
+    .terminal-header {
+      background: rgba(15, 23, 42, 0.95); padding: 0.75rem 1.25rem;
+      display: flex; align-items: center; justify-content: space-between;
+      border-bottom: 1px solid var(--border);
+    }
+    .terminal-dots { display: flex; gap: 0.4rem; }
+    .tdot { width: 11px; height: 11px; border-radius: 50%; }
+    .tdot-red { background: #ef4444; }
+    .tdot-yellow { background: #f59e0b; }
+    .tdot-green { background: #10b981; }
+    .terminal-title { font-family: 'DM Mono', monospace; font-size: 0.75rem; color: var(--muted); }
+    .terminal-body { padding: 1.5rem; font-family: 'DM Mono', monospace; font-size: 0.85rem; }
+    .terminal-prompt { display: flex; gap: 0.6rem; color: var(--accent3); margin-bottom: 0.5rem; }
+    .terminal-output { color: var(--text); line-height: 1.7; min-height: 70px; margin-bottom: 1.25rem; }
+    .terminal-actions { display: flex; flex-wrap: wrap; gap: 0.6rem; }
+    .terminal-pill {
+      background: rgba(56, 189, 248, 0.1); border: 1px solid var(--border);
+      color: var(--accent); padding: 0.4rem 0.9rem; border-radius: 8px; font-size: 0.75rem;
+      cursor: pointer; transition: all 0.2s;
+    }
+    .terminal-pill:hover { background: var(--accent); color: #05070f; border-color: var(--accent); }
+
+    /* SKILLS CARDS */
+    .skills-container { display: grid; grid-template-columns: repeat(3, 1fr); gap: 1.5rem; }
+    .skill-card {
+      background: var(--surface); border: 1px solid var(--border);
+      border-radius: 16px; padding: 2rem; backdrop-filter: blur(15px);
+      transition: all 0.35s cubic-bezier(0.4, 0, 0.2, 1); position: relative; overflow: hidden;
+    }
+    .skill-card:hover {
+      border-color: var(--accent); transform: translateY(-6px);
+      box-shadow: 0 15px 35px rgba(56, 189, 248, 0.15);
+    }
+    .skill-card-icon { font-size: 2rem; margin-bottom: 1.25rem; }
+    .skill-card-title {
+      font-family: 'Syne', sans-serif; font-size: 1.15rem; font-weight: 700; margin-bottom: 1rem;
+    }
+    .skill-badges { display: flex; flex-wrap: wrap; gap: 0.5rem; }
+    .skill-tag {
+      padding: 0.3rem 0.75rem; border-radius: 6px; font-size: 0.75rem;
+      font-family: 'DM Mono', monospace; background: rgba(15, 23, 42, 0.9);
+      border: 1px solid var(--border); color: var(--text);
+      transition: border-color 0.2s, color 0.2s;
+    }
+    .skill-tag:hover { border-color: var(--accent); color: var(--accent); }
+
+    /* PROJECTS */
+    .project-filter-bar {
+      display: flex; gap: 0.75rem; margin-bottom: 2.5rem; flex-wrap: wrap;
+    }
+    .filter-btn {
+      padding: 0.5rem 1.25rem; border-radius: 8px; font-family: 'DM Mono', monospace;
+      font-size: 0.8rem; background: var(--surface); border: 1px solid var(--border);
+      color: var(--muted); cursor: pointer; transition: all 0.3s;
+    }
+    .filter-btn.active, .filter-btn:hover {
+      background: var(--accent); color: #05070f; border-color: var(--accent);
+      box-shadow: 0 0 20px var(--accent-glow);
+    }
+    .projects-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 1.75rem; }
+    .project-card {
+      background: var(--surface); border: 1px solid var(--border);
+      border-radius: 18px; padding: 2.25rem; backdrop-filter: blur(20px);
+      display: flex; flex-direction: column; justify-content: space-between;
+      transition: all 0.35s ease; position: relative; overflow: hidden;
+    }
+    .project-card:hover {
+      border-color: var(--border-glow); transform: translateY(-6px);
+      box-shadow: 0 20px 45px rgba(0,0,0,0.5), 0 0 30px rgba(56, 189, 248, 0.1);
+    }
+    .project-index {
+      font-family: 'DM Mono', monospace; font-size: 0.75rem; color: var(--accent);
+      margin-bottom: 1rem; display: flex; align-items: center; justify-content: space-between;
+    }
+    .project-title {
+      font-family: 'Syne', sans-serif; font-size: 1.35rem; font-weight: 700;
+      margin-bottom: 0.75rem; color: var(--text);
+    }
+    .project-desc {
+      font-size: 0.95rem; color: var(--muted); line-height: 1.65; margin-bottom: 1.75rem; flex: 1;
+    }
+    .project-chips { display: flex; flex-wrap: wrap; gap: 0.45rem; }
+    .chip {
+      padding: 0.25rem 0.7rem; border-radius: 100px; font-size: 0.72rem;
+      font-family: 'DM Mono', monospace; background: rgba(56, 189, 248, 0.08);
+      border: 1px solid rgba(56, 189, 248, 0.25); color: var(--accent);
+    }
+
+    /* EXPERIENCE & INTERNSHIPS TIMELINE */
+    .timeline { position: relative; padding-left: 2rem; }
+    .timeline::before {
+      content: ''; position: absolute; left: 7px; top: 0; bottom: 0; width: 2px;
+      background: linear-gradient(180deg, var(--accent) 0%, var(--accent2) 50%, transparent 100%);
+    }
+    .timeline-item {
+      position: relative; margin-bottom: 2.75rem;
+    }
+    .timeline-node {
+      position: absolute; left: -2rem; top: 6px; width: 16px; height: 16px;
+      border-radius: 50%; background: var(--bg); border: 3px solid var(--accent);
+      box-shadow: 0 0 15px var(--accent);
+    }
+    .timeline-inner {
+      background: var(--surface); border: 1px solid var(--border);
+      border-radius: 16px; padding: 1.75rem; backdrop-filter: blur(15px);
+      transition: all 0.3s ease;
+    }
+    .timeline-inner:hover { border-color: var(--accent); transform: translateX(6px); }
+    .timeline-head {
+      display: flex; justify-content: space-between; align-items: flex-start;
+      margin-bottom: 0.75rem; flex-wrap: wrap; gap: 0.5rem;
+    }
+    .timeline-role { font-family: 'Syne', sans-serif; font-size: 1.15rem; font-weight: 700; }
+    .timeline-company { font-size: 0.95rem; color: var(--accent); font-weight: 500; }
+    .timeline-period {
+      font-family: 'DM Mono', monospace; font-size: 0.75rem;
+      padding: 0.25rem 0.7rem; border-radius: 6px;
+      background: rgba(56, 189, 248, 0.1); border: 1px solid var(--border); color: var(--accent);
+    }
+    .timeline-bullets { list-style: none; margin-top: 0.75rem; }
+    .timeline-bullets li {
+      font-size: 0.92rem; color: var(--muted); margin-bottom: 0.5rem;
+      position: relative; padding-left: 1.25rem;
+    }
+    .timeline-bullets li::before {
+      content: '▹'; position: absolute; left: 0; color: var(--accent); font-size: 0.9rem;
+    }
+
+    /* CERTIFICATIONS */
+    .certs-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 1.25rem; }
+    .cert-item {
+      background: var(--surface); border: 1px solid var(--border);
+      border-radius: 12px; padding: 1.35rem; backdrop-filter: blur(15px);
+      transition: all 0.25s ease;
+    }
+    .cert-item:hover { border-color: var(--accent2); transform: translateY(-4px); }
+    .cert-badge {
+      font-family: 'DM Mono', monospace; font-size: 0.68rem; color: var(--accent2);
+      text-transform: uppercase; letter-spacing: 0.1em; margin-bottom: 0.4rem;
+    }
+    .cert-title { font-size: 0.92rem; font-weight: 600; color: var(--text); }
+
+    /* CONTACT SECTION */
+    .contact-card {
+      background: linear-gradient(135deg, rgba(15, 23, 42, 0.8), rgba(9, 14, 28, 0.95));
+      border: 1px solid var(--border-glow); border-radius: 24px; padding: 4rem;
+      display: grid; grid-template-columns: 1fr 1fr; gap: 4rem; backdrop-filter: blur(25px);
+      box-shadow: 0 30px 60px rgba(0,0,0,0.6);
+    }
+    .contact-links-list { display: flex; flex-direction: column; gap: 1rem; }
+    .contact-box {
+      display: flex; align-items: center; justify-content: space-between;
+      padding: 1.1rem 1.4rem; border-radius: 12px; background: rgba(15, 23, 42, 0.6);
+      border: 1px solid var(--border); text-decoration: none; color: var(--text);
+      transition: all 0.3s ease;
+    }
+    .contact-box:hover {
+      border-color: var(--accent); background: rgba(56, 189, 248, 0.1); transform: translateX(6px);
+    }
+    .cb-left { display: flex; align-items: center; gap: 1rem; }
+    .cb-icon { font-size: 1.25rem; }
+    .cb-label { font-size: 0.72rem; font-family: 'DM Mono', monospace; color: var(--dim); }
+    .cb-val { font-size: 0.95rem; font-weight: 600; }
+
+    /* TOAST NOTIFICATION */
+    #toast {
+      position: fixed; bottom: 2rem; right: 2rem; z-index: 10000;
+      background: var(--surface-solid); border: 1px solid var(--accent);
+      color: var(--accent); padding: 0.8rem 1.4rem; border-radius: 10px;
+      font-family: 'DM Mono', monospace; font-size: 0.85rem;
+      box-shadow: 0 10px 30px rgba(0,0,0,0.6); opacity: 0; transform: translateY(20px);
+      pointer-events: none; transition: all 0.3s ease;
+    }
+    #toast.show { opacity: 1; transform: translateY(0); }
+
+    /* FOOTER */
+    footer {
+      padding: 2.5rem 3rem; border-top: 1px solid var(--border);
+      display: flex; justify-content: space-between; align-items: center;
+      font-family: 'DM Mono', monospace; font-size: 0.8rem; color: var(--dim);
+    }
+    footer a { color: var(--accent); text-decoration: none; }
+
+    /* RESPONSIVENESS */
+    @media (max-width: 968px) {
+      nav { padding: 1rem 1.5rem; }
+      .nav-links { display: none; }
+      #hero { flex-direction: column-reverse; padding-top: 6rem; gap: 3rem; text-align: center; }
+      .hero-desc { margin: 0 auto 2.5rem; }
+      .hero-actions { justify-content: center; }
+      .hero-stats { grid-template-columns: repeat(2, 1fr); }
+      .skills-container, .certs-grid { grid-template-columns: repeat(2, 1fr); }
+      .projects-grid, .contact-card { grid-template-columns: 1fr; gap: 2rem; }
+      .contact-card { padding: 2rem; }
+    }
+    @media (max-width: 600px) {
+      .skills-container, .certs-grid, .hero-stats { grid-template-columns: 1fr; }
+      .avatar-card { width: 280px; }
+      .avatar-img-wrap { height: 300px; }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- NEURAL CANVAS BACKGROUND -->
+  <canvas id="neural-canvas"></canvas>
+  <div class="grid-bg"></div>
+  <div class="ambient-glow glow-1"></div>
+  <div class="ambient-glow glow-2"></div>
+  <div class="ambient-glow glow-3"></div>
+
+  <!-- CURSOR (DESKTOP) -->
+  <div class="cursor-dot" id="cursorDot"></div>
+  <div class="cursor-follower" id="cursorFollower"></div>
+
+  <!-- NAVIGATION -->
+  <nav>
+    <a href="#hero" class="nav-brand">
+      <div class="brand-logo">L</div>
+      <span class="brand-text">Liyana S.P</span>
+    </a>
+    <div class="nav-links">
+      <a href="#about">About</a>
+      <a href="#skills">Skills</a>
+      <a href="#projects">Projects</a>
+      <a href="#experience">Experience</a>
+      <a href="#certifications">Certifications</a>
+      <a href="#contact">Contact</a>
+    </div>
+    <a href="#contact" class="nav-btn">Get In Touch</a>
+  </nav>
+
+  <!-- HERO -->
+  <section id="hero">
+    <div class="hero-content">
+      <div class="hero-badge">
+        <span class="badge-dot"></span>
+        AI Engineer & Data Science Scholar · Available for Hire
+      </div>
+      <h1 class="hero-title">
+        Building Scalable <br>
+        <span class="gradient-text">Agentic AI & Systems</span>
+      </h1>
+      <p class="hero-desc">
+        Specializing in Generative AI, autonomous multi-agent workflows, and intelligent backend engineering. Passionate about turning cutting-edge research into production-grade solutions.
+      </p>
+
+      <div class="hero-actions">
+        <a href="#projects" class="btn-primary">Explore Featured Work ⚡</a>
+        <a href="#contact" class="btn-outline">Let's Connect →</a>
+      </div>
+
+      <!-- LIVE STATS ROW -->
+      <div class="hero-stats">
+        <div class="stat-box">
+          <div class="stat-num" data-target="8.85">8.85</div>
+          <div class="stat-label">B.Tech CGPA</div>
+        </div>
+        <div class="stat-box">
+          <div class="stat-num" data-target="5">5+</div>
+          <div class="stat-label">Core Projects</div>
+        </div>
+        <div class="stat-box">
+          <div class="stat-num" data-target="4">4</div>
+          <div class="stat-label">Internships</div>
+        </div>
+        <div class="stat-box">
+          <div class="stat-num" data-target="11">11+</div>
+          <div class="stat-label">Certifications</div>
+        </div>
+      </div>
+    </div>
+
+    <!-- AVATAR PHOTO CARD -->
+    <div class="hero-avatar-wrap">
+      <div class="avatar-card">
+        <div class="avatar-img-wrap">
+          <img src="profile.jpg" alt="Liyana S.P" onerror="this.src='https://images.unsplash.com/photo-1573496359142-b8d87734a5a2?w=800&auto=format&fit=crop&q=80'">
+        </div>
+        <div class="avatar-meta">
+          <div class="avatar-name">Liyana S.P</div>
+          <div class="avatar-role">B.Tech AI & Data Science @ SNSCE</div>
+        </div>
+        <div class="avatar-badge-float">
+          <span>⚡</span> LeetCode: @liyanas
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- INTERACTIVE AI AGENT SIMULATOR -->
+  <section id="ai-demo">
+    <div class="terminal-card">
+      <div class="terminal-header">
+        <div class="terminal-dots">
+          <div class="tdot tdot-red"></div>
+          <div class="tdot tdot-yellow"></div>
+          <div class="tdot tdot-green"></div>
+        </div>
+        <div class="terminal-title">liyana-agent-v1.0.exe — Interactive Shell</div>
+        <div style="font-family: 'DM Mono', monospace; font-size: 0.7rem; color: var(--accent3);">● ONLINE</div>
+      </div>
+      <div class="terminal-body">
+        <div class="terminal-prompt">
+          <span>user@antigravity:~$</span>
+          <span id="terminal-cmd">agent.query("--mode=brief-summary")</span>
+        </div>
+        <div class="terminal-output" id="terminal-text">
+          "Hello! I'm Liyana's AI assistant. Liyana is an AI & Data Science engineer with an 8.85 CGPA at SNSCE, skilled in Generative AI, n8n Agentic workflows, Hugging Face, Gemini API, and Python. Select a query below to explore her profile!"
+        </div>
+        <div class="terminal-actions">
+          <button class="terminal-pill" onclick="queryAgent('why_hire')">💡 Why Hire Liyana?</button>
+          <button class="terminal-pill" onclick="queryAgent('genai')">🤖 GenAI & LLM Stack</button>
+          <button class="terminal-pill" onclick="queryAgent('internships')">🏢 Work History</button>
+          <button class="terminal-pill" onclick="queryAgent('contact')">📬 How to Reach Her</button>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ABOUT SECTION -->
+  <section id="about">
+    <div class="section-tag">About Me</div>
+    <h2 class="section-title">Driven by Curiosity.<br>Engineered with Precision.</h2>
+    <p style="color: var(--muted); font-size: 1.1rem; max-width: 800px; line-height: 1.8; margin-bottom: 2rem;">
+      I am an <strong>Artificial Intelligence & Data Science</strong> undergraduate at <strong>SNS College of Engineering (CGPA: 8.85)</strong> with practical software engineering experience in deploying autonomous workflows, predictive data analytics, and backend applications.
+    </p>
+  </section>
+
+  <!-- SKILLS SECTION -->
+  <section id="skills">
+    <div class="section-tag">Technical Competencies</div>
+    <h2 class="section-title">Skills & Capabilities</h2>
+    <div class="skills-container">
+
+      <div class="skill-card">
+        <div class="skill-card-icon">🤖</div>
+        <div class="skill-card-title">AI & Generative Models</div>
+        <div class="skill-badges">
+          <span class="skill-tag">Google Gemini API</span>
+          <span class="skill-tag">Hugging Face</span>
+          <span class="skill-tag">Agentic AI (n8n)</span>
+          <span class="skill-tag">Prompt Engineering</span>
+          <span class="skill-tag">Predictive Modeling</span>
+          <span class="skill-tag">EDA & Data Analytics</span>
+        </div>
+      </div>
+
+      <div class="skill-card">
+        <div class="skill-card-icon">💻</div>
+        <div class="skill-card-title">Languages & Database</div>
+        <div class="skill-badges">
+          <span class="skill-tag">Python</span>
+          <span class="skill-tag">SQL / MySQL</span>
+          <span class="skill-tag">Java</span>
+          <span class="skill-tag">JavaScript</span>
+          <span class="skill-tag">PHP</span>
+          <span class="skill-tag">phpMyAdmin</span>
+        </div>
+      </div>
+
+      <div class="skill-card">
+        <div class="skill-card-icon">⚙️</div>
+        <div class="skill-card-title">Frameworks & Tools</div>
+        <div class="skill-badges">
+          <span class="skill-tag">Streamlit</span>
+          <span class="skill-tag">FlutterFlow</span>
+          <span class="skill-tag">Express.js</span>
+          <span class="skill-tag">Firebase</span>
+          <span class="skill-tag">REST APIs</span>
+          <span class="skill-tag">VS Code / Git</span>
+        </div>
+      </div>
+
+    </div>
+  </section>
+
+  <!-- PROJECTS SECTION -->
+  <section id="projects">
+    <div class="section-tag">Portfolio Showcase</div>
+    <h2 class="section-title">Featured Projects</h2>
+
+    <div class="projects-grid">
+
+      <!-- Project 1 -->
+      <div class="project-card">
+        <div>
+          <div class="project-index"><span>PROJECT // 01</span> <span>🤖 AUTOMATION</span></div>
+          <div class="project-title">Automated Assessment Generator & Evaluator</div>
+          <p class="project-desc">
+            An autonomous workflow system engineered with <strong>n8n</strong> and LLM evaluation algorithms to generate, validate, and evaluate academic assessments with minimal human intervention.
+          </p>
+        </div>
+        <div class="project-chips">
+          <span class="chip">n8n</span>
+          <span class="chip">Agentic AI</span>
+          <span class="chip">LLM Evaluation</span>
+          <span class="chip">REST APIs</span>
+        </div>
+      </div>
+
+      <!-- Project 2 -->
+      <div class="project-card">
+        <div>
+          <div class="project-index"><span>PROJECT // 02</span> <span>🌐 REAL-TIME NLP</span></div>
+          <div class="project-title">Multilingual Real-Time Language Translator</div>
+          <p class="project-desc">
+            A high-speed, interactive translation system created using <strong>Python</strong> and <strong>Streamlit</strong> supporting real-time cross-language communication and text-to-speech pipelines.
+          </p>
+        </div>
+        <div class="project-chips">
+          <span class="chip">Python</span>
+          <span class="chip">Streamlit</span>
+          <span class="chip">NLP APIs</span>
+          <span class="chip">Real-Time UI</span>
+        </div>
+      </div>
+
+      <!-- Project 3 -->
+      <div class="project-card">
+        <div>
+          <div class="project-index"><span>PROJECT // 03</span> <span>🏃 HEALTHTECH</span></div>
+          <div class="project-title">FitSync — AI Smart Fitness Tracker</div>
+          <p class="project-desc">
+            A mobile health application engineered with <strong>FlutterFlow</strong> integrated with intelligent AI algorithms for tailored workout routines and health analytics.
+          </p>
+        </div>
+        <div class="project-chips">
+          <span class="chip">FlutterFlow</span>
+          <span class="chip">AI Algorithms</span>
+          <span class="chip">Mobile App</span>
+        </div>
+      </div>
+
+      <!-- Project 4 -->
+      <div class="project-card">
+        <div>
+          <div class="project-index"><span>PROJECT // 04</span> <span>💼 ENTERPRISE WEB</span></div>
+          <div class="project-title">Event Staffing Service Web Platform</div>
+          <p class="project-desc">
+            A full-stack web application designed with <strong>Java, JavaScript, and MySQL</strong> to manage staffing allocations, real-time schedule tracking, and role assignments.
+          </p>
+        </div>
+        <div class="project-chips">
+          <span class="chip">Java</span>
+          <span class="chip">JavaScript</span>
+          <span class="chip">MySQL</span>
+          <span class="chip">XAMPP</span>
+        </div>
+      </div>
+
+      <!-- Project 5 -->
+      <div class="project-card" style="grid-column: 1 / -1;">
+        <div>
+          <div class="project-index"><span>PROJECT // 05</span> <span>💧 IOT & MOBILE</span></div>
+          <div class="project-title">Aqua Reminder Mobile Application</div>
+          <p class="project-desc">
+            A low-code reactive mobile app developed using <strong>MIT App Inventor</strong> connected with <strong>Firebase Realtime Database</strong> to track daily water intake and dispatch intelligent reminders.
+          </p>
+        </div>
+        <div class="project-chips">
+          <span class="chip">MIT App Inventor</span>
+          <span class="chip">Firebase</span>
+          <span class="chip">Cloud Sync</span>
+        </div>
+      </div>
+
+    </div>
+  </section>
+
+  <!-- WORK EXPERIENCE -->
+  <section id="experience">
+    <div class="section-tag">Career History</div>
+    <h2 class="section-title">Internships & Roles</h2>
+
+    <div class="timeline">
+
+      <!-- Item 1 -->
+      <div class="timeline-item">
+        <div class="timeline-node"></div>
+        <div class="timeline-inner">
+          <div class="timeline-head">
+            <div>
+              <div class="timeline-role">Software & Problem Solving Intern</div>
+              <div class="timeline-company">Microsoft Elevate — AICTE Internship</div>
+            </div>
+            <div class="timeline-period">02/2026 – 03/2026</div>
+          </div>
+          <ul class="timeline-bullets">
+            <li>Developed practical skills in algorithmic problem solving and structured application development.</li>
+            <li>Mastered real-world engineering project workflows and scalable code architectures.</li>
+          </ul>
+        </div>
+      </div>
+
+      <!-- Item 2 -->
+      <div class="timeline-item">
+        <div class="timeline-node"></div>
+        <div class="timeline-inner">
+          <div class="timeline-head">
+            <div>
+              <div class="timeline-role">Generative AI & Chatbot Development Intern</div>
+              <div class="timeline-company">Gateway Software Solutions</div>
+            </div>
+            <div class="timeline-period">06/2025 – 07/2025</div>
+          </div>
+          <ul class="timeline-bullets">
+            <li>Integrated Hugging Face API models for text generation and NLP pipeline inference.</li>
+            <li>Built an intelligent conversational chatbot using Google Gemini API with conversational flow design and prompt engineering.</li>
+          </ul>
+        </div>
+      </div>
+
+      <!-- Item 3 -->
+      <div class="timeline-item">
+        <div class="timeline-node"></div>
+        <div class="timeline-inner">
+          <div class="timeline-head">
+            <div>
+              <div class="timeline-role">GenAI-Powered Data Analytics Intern</div>
+              <div class="timeline-company">Tata Virtual Internship (Forage)</div>
+            </div>
+            <div class="timeline-period">06/2025 – 07/2025</div>
+          </div>
+          <ul class="timeline-bullets">
+            <li>Conducted comprehensive Exploratory Data Analysis (EDA) on structured datasets.</li>
+            <li>Developed and validated predictive analytics models to drive strategic data-backed decisions.</li>
+          </ul>
+        </div>
+      </div>
+
+      <!-- Item 4 -->
+      <div class="timeline-item">
+        <div class="timeline-node"></div>
+        <div class="timeline-inner">
+          <div class="timeline-head">
+            <div>
+              <div class="timeline-role">Web Development Intern</div>
+              <div class="timeline-company">Nandha Infotech</div>
+            </div>
+            <div class="timeline-period">08/2024 – 09/2024</div>
+          </div>
+          <ul class="timeline-bullets">
+            <li>Engineered web solutions, including a farmer-usable tree-plotting webpage using VS Code and XAMPP.</li>
+          </ul>
+        </div>
+      </div>
+
+    </div>
+  </section>
+
+  <!-- CERTIFICATIONS -->
+  <section id="certifications">
+    <div class="section-tag">Verified Credentials</div>
+    <h2 class="section-title">Certifications & Honors</h2>
+    <div class="certs-grid">
+      <div class="cert-item"><div class="cert-badge">Databricks</div><div class="cert-title">Generative AI Fundamentals & Data Engineer</div></div>
+      <div class="cert-item"><div class="cert-badge">Microsoft & LinkedIn</div><div class="cert-title">Career Essentials in Generative AI</div></div>
+      <div class="cert-item"><div class="cert-badge">AWS Academy</div><div class="cert-title">Generative AI Foundations Graduate</div></div>
+      <div class="cert-item"><div class="cert-badge">Google / Coursera</div><div class="cert-title">Google AI Essentials</div></div>
+      <div class="cert-item"><div class="cert-badge">Oracle</div><div class="cert-title">Oracle Foundations Associate</div></div>
+      <div class="cert-item"><div class="cert-badge">EY</div><div class="cert-title">Microsoft Azure Certification</div></div>
+      <div class="cert-item"><div class="cert-badge">ByteXL</div><div class="cert-title">Python, DSA & DBMS</div></div>
+      <div class="cert-item"><div class="cert-badge">PrepInsta</div><div class="cert-title">Express.js Backend Web Development</div></div>
+      <div class="cert-item"><div class="cert-badge">Google / Coursera</div><div class="cert-title">Foundations of Cybersecurity</div></div>
+    </div>
+  </section>
+
+  <!-- CONTACT -->
+  <section id="contact">
+    <div class="contact-card">
+      <div>
+        <div class="section-tag">Connect With Me</div>
+        <h2 style="font-family: 'Syne', sans-serif; font-size: 2.4rem; font-weight: 800; margin-bottom: 1rem;">
+          Let's Build the Future of AI.
+        </h2>
+        <p style="color: var(--muted); line-height: 1.7; margin-bottom: 2rem;">
+          Whether you have an exciting internship opportunity, full-time role, or an ambitious AI project to collaborate on — my inbox is always open.
+        </p>
+        <button class="btn-primary" onclick="copyEmail()">📋 Copy Email Address</button>
+      </div>
+
+      <div class="contact-links-list">
+        <a href="mailto:liyana.sp.ad.2023@snsce.ac.in" class="contact-box">
+          <div class="cb-left"><span class="cb-icon">✉️</span><div><div class="cb-label">EMAIL</div><div class="cb-val">liyana.sp.ad.2023@snsce.ac.in</div></div></div>
+          <span>→</span>
+        </a>
+        <a href="https://linkedin.com/in/liyana-sp" target="_blank" class="contact-box">
+          <div class="cb-left"><span class="cb-icon">💼</span><div><div class="cb-label">LINKEDIN</div><div class="cb-val">linkedin.com/in/liyana-sp</div></div></div>
+          <span>→</span>
+        </a>
+        <a href="https://github.com/Liyanasp" target="_blank" class="contact-box">
+          <div class="cb-left"><span class="cb-icon">🐙</span><div><div class="cb-label">GITHUB</div><div class="cb-val">github.com/Liyanasp</div></div></div>
+          <span>→</span>
+        </a>
+        <a href="https://leetcode.com/liyanas" target="_blank" class="contact-box">
+          <div class="cb-left"><span class="cb-icon">⚡</span><div><div class="cb-label">LEETCODE</div><div class="cb-val">leetcode.com/liyanas</div></div></div>
+          <span>→</span>
+        </a>
+        <a href="tel:7598469499" class="contact-box">
+          <div class="cb-left"><span class="cb-icon">📱</span><div><div class="cb-label">PHONE</div><div class="cb-val">+91 7598469499</div></div></div>
+          <span>→</span>
+        </a>
+      </div>
+    </div>
+  </section>
+
+  <!-- TOAST NOTIFICATION -->
+  <div id="toast">✓ Copied to clipboard!</div>
+
+  <!-- FOOTER -->
+  <footer>
+    <div>Designed & Engineered by <a href="https://github.com/Liyanasp">Liyana S.P</a></div>
+    <div>B.Tech AI & Data Science · All Rights Reserved © 2026</div>
+  </footer>
+
+  <!-- JAVASCRIPT FOR NEURAL CANVAS & INTERACTION -->
+  <script>
+    // NEURAL CONSTELLATION CANVAS ANIMATION
+    const canvas = document.getElementById('neural-canvas');
+    const ctx = canvas.getContext('2d');
+    let width, height, particles = [];
+    let mouse = { x: null, y: null, radius: 140 };
+
+    function resize() {
+      width = canvas.width = window.innerWidth;
+      height = canvas.height = window.innerHeight;
+    }
+    window.addEventListener('resize', resize);
+    resize();
+
+    window.addEventListener('mousemove', e => {
+      mouse.x = e.clientX;
+      mouse.y = e.clientY;
+    });
+    window.addEventListener('mouseout', () => {
+      mouse.x = null;
+      mouse.y = null;
+    });
+
+    class Particle {
+      constructor() {
+        this.x = Math.random() * width;
+        this.y = Math.random() * height;
+        this.vx = (Math.random() - 0.5) * 0.7;
+        this.vy = (Math.random() - 0.5) * 0.7;
+        this.radius = Math.random() * 2 + 1;
+      }
+      update() {
+        this.x += this.vx;
+        this.y += this.vy;
+        if (this.x < 0 || this.x > width) this.vx *= -1;
+        if (this.y < 0 || this.y > height) this.vy *= -1;
+
+        if (mouse.x != null) {
+          let dx = mouse.x - this.x;
+          let dy = mouse.y - this.y;
+          let dist = Math.sqrt(dx * dx + dy * dy);
+          if (dist < mouse.radius) {
+            let angle = Math.atan2(dy, dx);
+            let force = (mouse.radius - dist) / mouse.radius;
+            this.x -= Math.cos(angle) * force * 2;
+            this.y -= Math.sin(angle) * force * 2;
+          }
+        }
+      }
+      draw() {
+        ctx.beginPath();
+        ctx.arc(this.x, this.y, this.radius, 0, Math.PI * 2);
+        ctx.fillStyle = '#38bdf8';
+        ctx.fill();
+      }
+    }
+
+    const particleCount = Math.min(width > 768 ? 65 : 30, 80);
+    for (let i = 0; i < particleCount; i++) {
+      particles.push(new Particle());
+    }
+
+    function animateParticles() {
+      ctx.clearRect(0, 0, width, height);
+      for (let i = 0; i < particles.length; i++) {
+        particles[i].update();
+        particles[i].draw();
+
+        for (let j = i + 1; j < particles.length; j++) {
+          let dx = particles[i].x - particles[j].x;
+          let dy = particles[i].y - particles[j].y;
+          let dist = Math.sqrt(dx * dx + dy * dy);
+          if (dist < 130) {
+            ctx.beginPath();
+            ctx.strokeStyle = `rgba(56, 189, 248, ${0.18 * (1 - dist / 130)})`;
+            ctx.lineWidth = 1;
+            ctx.moveTo(particles[i].x, particles[i].y);
+            ctx.lineTo(particles[j].x, particles[j].y);
+            ctx.stroke();
+          }
+        }
+      }
+      requestAnimationFrame(animateParticles);
+    }
+    animateParticles();
+
+    // CUSTOM CURSOR
+    const cursorDot = document.getElementById('cursorDot');
+    const cursorFollower = document.getElementById('cursorFollower');
+    let cx = 0, cy = 0, fx = 0, fy = 0;
+
+    window.addEventListener('mousemove', e => {
+      cx = e.clientX;
+      cy = e.clientY;
+      if (cursorDot) {
+        cursorDot.style.left = cx + 'px';
+        cursorDot.style.top = cy + 'px';
+      }
+    });
+
+    function renderFollower() {
+      fx += (cx - fx) * 0.15;
+      fy += (cy - fy) * 0.15;
+      if (cursorFollower) {
+        cursorFollower.style.left = fx + 'px';
+        cursorFollower.style.top = fy + 'px';
+      }
+      requestAnimationFrame(renderFollower);
+    }
+    renderFollower();
+
+    // AI AGENT TERMINAL QUERY INTERACTION
+    const agentResponses = {
+      why_hire: "Liyana balances rigorous academic excellence (8.85 CGPA) with hands-on enterprise internships at Microsoft Elevate, Gateway, and Tata. She builds production-grade GenAI pipelines and agentic automation.",
+      genai: "Tech stack: Google Gemini API, Hugging Face, n8n Agentic Automation, Prompt Engineering, Streamlit NLP Apps, and Databricks Advanced ML.",
+      internships: "Completed 4 high-impact internships: Microsoft Elevate (Problem Solving/Lifecycle), Gateway (Hugging Face & Gemini Chatbot), Tata (Data Analytics/EDA), and Nandha (Full-Stack).",
+      contact: "Reach Liyana at liyana.sp.ad.2023@snsce.ac.in or connect on LinkedIn (linkedin.com/in/liyana-sp)."
+    };
+
+    function queryAgent(type) {
+      const textEl = document.getElementById('terminal-text');
+      const cmdEl = document.getElementById('terminal-cmd');
+      cmdEl.innerText = `agent.query("--key=${type}")`;
+      textEl.style.opacity = '0.3';
+      setTimeout(() => {
+        textEl.innerText = `"${agentResponses[type]}"`;
+        textEl.style.opacity = '1';
+      }, 200);
+    }
+
+    // COPY EMAIL TOAST
+    function copyEmail() {
+      navigator.clipboard.writeText('liyana.sp.ad.2023@snsce.ac.in');
+      const toast = document.getElementById('toast');
+      toast.classList.add('show');
+      setTimeout(() => toast.classList.remove('show'), 2500);
+    }
+  </script>
+</body>
+</html>
